@@ -4,7 +4,7 @@ import ColorConstant from '../../../Constant/ColorConstant';
 import FontSizeConstant from '../../../Constant/FontSizeConstant';
 import TextComponent from '../TextComponent/TextComponent';
 
-interface AppHeaderProps {
+export interface AppHeaderProps {
     LeftStack?: React.ReactNode; // Header left element
     RightStack?: React.ReactNode; // Header right element
     Title?: string; // Header title text

@@ -1,12 +1,31 @@
-import { StyleSheet, Text, TextProps } from 'react-native';
+import { Text, TextProps } from 'react-native';
 
 import ColorConstant from '../../../Constant/ColorConstant';
 import FontSizeConstant from '../../../Constant/FontSizeConstant';
 
-const TextComponent = ({ style, ...props }: TextProps) => {
+interface TextComponentProps extends TextProps {
+    fontSize?: number;
+    fontColor?: string;
+    isBold?: boolean;
+}
+
+const TextComponent = ({
+    style,
+    fontSize,
+    fontColor,
+    isBold,
+    ...props
+}: TextComponentProps) => {
     return (
         <Text
-            style={[TextComponentStyles.defaultStyle, style]}
+            style={[
+                {
+                    fontSize: fontSize ? fontSize : FontSizeConstant.middle,
+                    color: fontColor ? fontColor : ColorConstant.Text.Grey.Dark,
+                    fontWeight: isBold ? 'bold' : 'normal',
+                },
+                style,
+            ]}
             allowFontScaling={false}
             {...props}
         >
@@ -16,10 +35,3 @@ const TextComponent = ({ style, ...props }: TextProps) => {
 };
 
 export default TextComponent;
-
-const TextComponentStyles = StyleSheet.create({
-    defaultStyle: {
-        fontSize: FontSizeConstant.middle,
-        color: ColorConstant.Text.Blue.Deep,
-    },
-});

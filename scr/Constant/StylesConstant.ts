@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import ColorConstant from './ColorConstant';
 
 const StylesConstant = StyleSheet.create({

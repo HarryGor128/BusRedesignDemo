@@ -54,7 +54,7 @@ const BottomNavigationStack = () => {
                 tabBarInactiveTintColor: ColorConstant.Text.Grey.Dark,
                 tabBarActiveTintColor: ColorConstant.Text.Red.Normal,
                 tabBarLabelStyle: {
-                    fontSize: FontSizeConstant.xsmall,
+                    fontSize: FontSizeConstant.small,
                     marginBottom: 5,
                 },
                 tabBarHideOnKeyboard: true,
@@ -62,8 +62,9 @@ const BottomNavigationStack = () => {
                 tabBarIconStyle: { margin: 5 },
             }}
         >
-            {bottomScreen.map((item) => (
+            {bottomScreen.map((item, index) => (
                 <BottomStack.Screen
+                    key={index}
                     name={item.screenName}
                     component={item.component}
                     options={{
@@ -80,15 +81,6 @@ const BottomNavigationStack = () => {
                     }}
                 />
             ))}
-
-            {/* <BottomStack.Screen
-                name={'BusRouteSearch'}
-                component={BusRouteSearchScreen}
-            />
-            <BottomStack.Screen
-                name={'P2PRouteSearch'}
-                component={P2PRouteSearchScreen}
-            /> */}
         </BottomStack.Navigator>
     );
 };

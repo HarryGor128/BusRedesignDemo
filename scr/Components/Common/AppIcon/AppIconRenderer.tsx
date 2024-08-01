@@ -25,7 +25,7 @@ const AppIcon = ({ Icon, IconSize, IconColor, IconStyle }: AppIconProps) => {
         <FontAwesomeIcon
             icon={Icon}
             size={IconSize}
-            color={IconColor ? IconColor : ColorConstant.Text.Blue.Light}
+            color={IconColor ? IconColor : ColorConstant.Text.Grey.Normal}
             style={IconStyle}
         />
     );

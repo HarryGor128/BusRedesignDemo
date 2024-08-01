@@ -10,7 +10,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import 'intl-pluralrules';
 
 import AppContainer from './scr/AppContainer';
-import ColorConstant from './scr/Constant/ColorConstant';
 import './scr/i18n/i18n';
 import { store } from './scr/store/store';
 
@@ -26,7 +25,6 @@ const App = () => {
                     <SafeAreaView
                         style={{
                             flex: 1,
-                            backgroundColor: ColorConstant.BG.White.Normal,
                         }}
                     >
                         <AppContainer />

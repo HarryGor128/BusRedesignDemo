@@ -61,7 +61,7 @@ const ColorConstant = {
         Blue: {
             Bright: '#61DAFB',
             Light: '#969FAF',
-            Normal: '#134484',
+            Normal: '#025EB2',
             Dark: '#282C34',
             Deep: '#1C1E21',
         },
