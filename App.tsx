@@ -26,7 +26,7 @@ const App = () => {
                     <SafeAreaView
                         style={{
                             flex: 1,
-                            backgroundColor: ColorConstant.BG.Blue.Deep,
+                            backgroundColor: ColorConstant.BG.White.Normal,
                         }}
                     >
                         <AppContainer />

@@ -1,9 +1,10 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
-import ScreenParamList from '../../Type/Navigation/ScreenParamList';
+import MainStackList from '../../Type/Navigation/MainStackList';
 import InitializationScreen from '../Initialization/Initialization';
+import BottomNavigationStack from './BottomNavigationStack';
 
-const Stack = createStackNavigator<ScreenParamList>();
+const Stack = createStackNavigator<MainStackList>();
 
 const MainStack = () => {
     return (
@@ -14,6 +15,10 @@ const MainStack = () => {
             <Stack.Screen
                 name={'Initialization'}
                 component={InitializationScreen}
+            />
+            <Stack.Screen
+                name={'BottomNavigation'}
+                component={BottomNavigationStack}
             />
         </Stack.Navigator>
     );

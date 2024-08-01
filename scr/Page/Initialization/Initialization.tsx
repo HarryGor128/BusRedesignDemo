@@ -6,12 +6,13 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import ColorConstant from '../../Constant/ColorConstant';
 import useAndroidBackButton from '../../Hook/Common/useAndroidBackButton';
-import ScreenParamList from '../../Type/Navigation/ScreenParamList';
+import commonService from '../../Services/Common/commonService';
+import MainStackList from '../../Type/Navigation/MainStackList';
 import { closeLoader, openLoader } from '../../store/reducer/appStateSlice';
 import { useAppDispatch } from '../../store/storeHooks';
 
 type NavigationProps = NativeStackNavigationProp<
-    ScreenParamList,
+    MainStackList,
     'Initialization'
 >;
 
@@ -22,13 +23,18 @@ const InitializationScreen = () => {
 
     useAndroidBackButton();
 
-    useEffect(() => {
+    const fakeLoading = async () => {
         dispatch(openLoader());
+        await commonService.sleep(1000);
         dispatch(closeLoader());
-        // navigation.navigate('StartOption');
+    };
+
+    useEffect(() => {
+        fakeLoading();
+        navigation.navigate('BottomNavigation');
     }, []);
 
-    return <View style={{ backgroundColor: ColorConstant.BG.Blue.Deep }} />;
+    return <View style={{ backgroundColor: ColorConstant.BG.White.Normal }} />;
 };
 
 export default InitializationScreen;

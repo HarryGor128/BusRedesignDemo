@@ -1,18 +1,18 @@
 import { NavigationProp } from '@react-navigation/native';
 
 import ColorConstant from '../../../Constant/ColorConstant';
-import ScreenParamList from '../../../Type/Navigation/ScreenParamList';
+import MainStackList from '../../../Type/Navigation/MainStackList';
 import CustomButton from '../CustomButton/CustomButton';
 
 interface AppHeaderBackButtonProps {
-    navigation: NavigationProp<ScreenParamList>; // Navigation Prop
+    navigation: NavigationProp<MainStackList>; // Navigation Prop
     beforeGoBack?: Function; // Before page going back
     backToOtherPage?: Function; // Back to other page
 }
 
 /**
  *
- *  @param navigation: NavigationProp<ScreenParamList>; // Navigation Prop
+ *  @param navigation: NavigationProp<MainStackList>; // Navigation Prop
  *  @param beforeGoBack?: Function; // Before page going back
  *  @param backToOtherPage?: Function; // Back to other page
  */

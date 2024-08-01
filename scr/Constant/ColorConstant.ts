@@ -29,6 +29,14 @@ const ColorConstant = {
             Dark: '#3E588B',
             Deep: '#282C34',
         },
+
+        Red: {
+            Normal: '#E42031',
+        },
+
+        Yellow: {
+            Normal: '#ffb225',
+        },
     },
 
     Text: {
@@ -37,9 +45,9 @@ const ColorConstant = {
         },
 
         Grey: {
-            Light: '#F6F6F6',
+            Light: '#fafdf9',
             Normal: '#CECECE',
-            Dark: '#999999',
+            Dark: '#394955',
         },
 
         White: {
@@ -47,7 +55,7 @@ const ColorConstant = {
         },
 
         Red: {
-            Normal: '#dd0e0e',
+            Normal: '#dc2238',
         },
 
         Blue: {
