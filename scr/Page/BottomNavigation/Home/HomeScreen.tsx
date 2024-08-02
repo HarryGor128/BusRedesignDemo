@@ -13,7 +13,7 @@ const HomeScreen = () => {
     const { t } = useTranslation();
 
     const [busRouteList, setBusRouteList] = useState<BusRoute[]>(
-        fakeDataService.randomLengthList(BusRoute, 'routeName'),
+        fakeDataService.randomLengthObjectList(BusRoute, 'routeName'),
     );
 
     const onPressFavorite = (routeName: string) => {

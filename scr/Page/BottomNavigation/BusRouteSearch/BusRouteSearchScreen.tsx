@@ -1,17 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 import BusRouteList from '../../../Components/BusRouteList/BusRouteList';
 import PageContainer from '../../../Components/Common/PageContainer/PageContainer';
 import SearchBar from '../../../Components/Common/SearchBar/SearchBar';
+import commonService from '../../../Services/Common/commonService';
 import fakeDataService from '../../../Services/Common/fakeDataService';
 import BusRoute from '../../../Type/Bus/BusRoute';
+import { closeLoader, openLoader } from '../../../store/reducer/appStateSlice';
+import { useAppDispatch } from '../../../store/storeHooks';
 
 const BusRouteSearchScreen = () => {
     const [busRouteList, setBusRouteList] = useState<BusRoute[]>(
-        fakeDataService.randomLengthList(BusRoute, 'routeName'),
+        fakeDataService.randomLengthObjectList(BusRoute, 'routeName'),
     );
     const [searchText, setSearchText] = useState<string>('');
+
+    const dispatch = useAppDispatch();
+
+    const fakeLoading = async () => {
+        dispatch(openLoader());
+        await commonService.sleep(1000);
+        dispatch(closeLoader());
+    };
+
+    useEffect(() => {
+        fakeLoading();
+    }, []);
 
     const onPressFavorite = (routeName: string) => {
         setBusRouteList((prev) => {

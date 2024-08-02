@@ -8,9 +8,10 @@ class BusRoute {
     isFavorite: boolean;
 
     constructor() {
-        this.routeName = fakeDataService
-            .randomNumber({ min: 1, max: 999 })
-            .toString();
+        this.routeName = fakeDataService.randomTrueFalse()
+            ? fakeDataService.randomEngLetterGen(1, 'upper') +
+              fakeDataService.randomNumber({ min: 1, max: 999 }).toString()
+            : fakeDataService.randomNumber({ min: 1, max: 999 }).toString();
         this.terminus = 'Terminus';
         this.busStop = new BusStop();
         this.isFavorite = false;
