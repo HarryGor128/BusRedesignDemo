@@ -60,6 +60,7 @@ const BottomNavigationStack = () => {
                 tabBarHideOnKeyboard: true,
                 tabBarStyle: { height: 70 },
                 tabBarIconStyle: { margin: 5 },
+                tabBarAllowFontScaling: false,
             }}
         >
             {bottomScreen.map((item, index) => (

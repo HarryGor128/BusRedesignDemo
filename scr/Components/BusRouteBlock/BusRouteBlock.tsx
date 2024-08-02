@@ -40,7 +40,7 @@ const BusRouteBlock = ({
             style={[BusRouteBlockStyle.mainContainer, { width }]}
             onPress={onPress}
         >
-            <TextComponent style={{ marginRight: 20 }}>
+            <TextComponent style={{ width: 40, marginRight: 20 }}>
                 {busRoute.routeName}
             </TextComponent>
             <View style={{ flex: 1 }}>
@@ -76,7 +76,7 @@ const BusRouteBlock = ({
                                 fontColor={ColorConstant.Text.Blue.Normal}
                             >{`${item} `}</TextComponent>
                             <TextComponent fontSize={FontSizeConstant.small}>
-                                {t('minute')}
+                                {t('Minute')}
                             </TextComponent>
                         </View>
                     ))}

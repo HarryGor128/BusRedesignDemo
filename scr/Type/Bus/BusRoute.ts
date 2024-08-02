@@ -1,3 +1,4 @@
+import fakeDataService from '../../Services/Common/fakeDataService';
 import BusStop from './BusStop';
 
 class BusRoute {
@@ -7,8 +8,10 @@ class BusRoute {
     isFavorite: boolean;
 
     constructor() {
-        this.routeName = '';
-        this.terminus = '';
+        this.routeName = fakeDataService
+            .randomNumber({ min: 1, max: 999 })
+            .toString();
+        this.terminus = 'Terminus';
         this.busStop = new BusStop();
         this.isFavorite = false;
     }

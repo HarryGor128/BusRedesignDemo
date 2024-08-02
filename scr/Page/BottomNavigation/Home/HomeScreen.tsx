@@ -6,139 +6,15 @@ import HorizontalScrollPage, {
     PageTitle,
 } from '../../../Components/Common/HorizontalScrollPage/HorizontalScrollPage';
 import PageContainer from '../../../Components/Common/PageContainer/PageContainer';
+import fakeDataService from '../../../Services/Common/fakeDataService';
 import BusRoute from '../../../Type/Bus/BusRoute';
 
 const HomeScreen = () => {
     const { t } = useTranslation();
 
-    const [busRouteList, setBusRouteList] = useState<BusRoute[]>([
-        {
-            routeName: Math.floor(100 + Math.random() * 900).toString(),
-            terminus: 'Terminus',
-            busStop: {
-                busStopName: 'Bus stop',
-                fee: 10 + Math.random() * 90,
-                nextBus: [
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                ],
-            },
-            isFavorite: false,
-        },
-        {
-            routeName: Math.floor(100 + Math.random() * 900).toString(),
-            terminus: 'Terminus',
-            busStop: {
-                busStopName: 'Bus stop',
-                fee: 10 + Math.random() * 90,
-                nextBus: [
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                ],
-            },
-            isFavorite: false,
-        },
-        {
-            routeName: Math.floor(100 + Math.random() * 900).toString(),
-            terminus: 'Terminus',
-            busStop: {
-                busStopName: 'Bus stop',
-                fee: 10 + Math.random() * 90,
-                nextBus: [
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                ],
-            },
-            isFavorite: false,
-        },
-        {
-            routeName: Math.floor(100 + Math.random() * 900).toString(),
-            terminus: 'Terminus',
-            busStop: {
-                busStopName: 'Bus stop',
-                fee: 10 + Math.random() * 90,
-                nextBus: [
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                ],
-            },
-            isFavorite: false,
-        },
-        {
-            routeName: Math.floor(100 + Math.random() * 900).toString(),
-            terminus: 'Terminus',
-            busStop: {
-                busStopName: 'Bus stop',
-                fee: 10 + Math.random() * 90,
-                nextBus: [
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                ],
-            },
-            isFavorite: false,
-        },
-        {
-            routeName: Math.floor(100 + Math.random() * 900).toString(),
-            terminus: 'Terminus',
-            busStop: {
-                busStopName: 'Bus stop',
-                fee: 10 + Math.random() * 90,
-                nextBus: [
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                ],
-            },
-            isFavorite: false,
-        },
-        {
-            routeName: Math.floor(100 + Math.random() * 900).toString(),
-            terminus: 'Terminus',
-            busStop: {
-                busStopName: 'Bus stop',
-                fee: 10 + Math.random() * 90,
-                nextBus: [
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                ],
-            },
-            isFavorite: false,
-        },
-        {
-            routeName: Math.floor(100 + Math.random() * 900).toString(),
-            terminus: 'Terminus',
-            busStop: {
-                busStopName: 'Bus stop',
-                fee: 10 + Math.random() * 90,
-                nextBus: [
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                ],
-            },
-            isFavorite: false,
-        },
-        {
-            routeName: Math.floor(100 + Math.random() * 900).toString(),
-            terminus: 'Terminus',
-            busStop: {
-                busStopName: 'Bus stop',
-                fee: 10 + Math.random() * 90,
-                nextBus: [
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                    Math.floor(10 + Math.random() * 90),
-                ],
-            },
-            isFavorite: false,
-        },
-    ]);
+    const [busRouteList, setBusRouteList] = useState<BusRoute[]>(
+        fakeDataService.randomLengthList(BusRoute, 'routeName'),
+    );
 
     const onPressFavorite = (routeName: string) => {
         setBusRouteList((prev) => {

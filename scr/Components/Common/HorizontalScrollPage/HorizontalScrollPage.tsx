@@ -42,7 +42,6 @@ const HorizontalScrollPage = ({
     }) => {
         return (
             <TouchableOpacity
-                key={index}
                 onPress={() => {
                     flatListRef.current?.scrollToIndex({ index: index });
                 }}
@@ -73,9 +72,15 @@ const HorizontalScrollPage = ({
         );
     };
 
-    const renderItem = ({ item }: { item: ReactNode }) => {
+    const renderItem = ({
+        item,
+        index,
+    }: {
+        item: ReactNode;
+        index: number;
+    }) => {
         return (
-            <TouchableOpacity style={{ flex: 1, width }}>
+            <TouchableOpacity key={index} style={{ flex: 1, width }}>
                 {item}
             </TouchableOpacity>
         );
@@ -94,7 +99,7 @@ const HorizontalScrollPage = ({
         <View style={{ flex: 1, justifyContent: 'center' }}>
             <View style={HorizontalScrollPageStyle.titleRow}>
                 {pageTitle.map((item, index) => (
-                    <PageTitleRenderer item={item} index={index} />
+                    <PageTitleRenderer key={index} item={item} index={index} />
                 ))}
             </View>
             <FlatList

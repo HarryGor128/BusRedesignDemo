@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import {
+    KeyboardTypeOptions,
     NativeSyntheticEvent,
     StyleProp,
     StyleSheet,
@@ -11,12 +12,13 @@ import {
 
 import ColorConstant from '../../../Constant/ColorConstant';
 import AppIcon, { AppIconProps } from '../AppIcon/AppIconRenderer';
-import CustomButton from '../CustomButton/CustomButton';
+import IconButton from '../IconButton/IconButton';
 import TextInputComponent from '../TextInputComponent/TextInputComponent';
 
 interface SearchBarProps {
     onInput: Function; // When user input on the search bar
     value: string; // The value of text input
+    keyboardType?: KeyboardTypeOptions; // Change text input keyboard type
     isSearchButtonShow?: boolean; // Show search button
     onSearchPress?: Function; // When user press search
     placeHolderText?: string; // Display search bar place holder
@@ -31,6 +33,7 @@ interface SearchBarProps {
 const SearchBar = ({
     onInput,
     value,
+    keyboardType,
     isSearchButtonShow,
     onSearchPress,
     placeHolderText,
@@ -47,7 +50,7 @@ const SearchBar = ({
         <View style={[SearchBarStyles.inputContainer, containerStyle]}>
             <AppIcon
                 Icon={['fas', 'search']}
-                IconColor={ColorConstant.Text.Blue.Deep}
+                IconColor={ColorConstant.Text.Grey.Dark}
                 IconSize={20}
                 {...Icon}
             />
@@ -57,7 +60,7 @@ const SearchBar = ({
                 placeholderTextColor={
                     placeHolderTextColor
                         ? placeHolderTextColor
-                        : ColorConstant.Text.Black.Normal
+                        : ColorConstant.Text.Grey.Dark
                 }
                 onChangeText={(text) => {
                     onInput(text);
@@ -69,18 +72,17 @@ const SearchBar = ({
                 }
                 onBlur={onBlur}
                 onFocus={onFocus}
+                keyboardType={keyboardType}
             />
             {isSearchButtonShow && (
-                <CustomButton
-                    OnPressCallback={
+                <IconButton
+                    onPressCallBack={
                         onSearchPress ? () => onSearchPress() : () => {}
                     }
-                    Icon={['fas', 'chevron-right']}
-                    IconSize={20}
-                    IconColor={ColorConstant.Text.Blue.Deep}
-                    ButtonContainerStyle={{
-                        padding: 0,
-                        backgroundColor: ColorConstant.Transparent.Clear,
+                    IconProps={{
+                        Icon: ['fas', 'chevron-right'],
+                        IconSize: 20,
+                        IconColor: ColorConstant.Text.Grey.Dark,
                     }}
                 />
             )}
@@ -98,13 +100,13 @@ const SearchBarStyles = StyleSheet.create({
         borderRadius: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: ColorConstant.BG.Blue.Normal,
+        backgroundColor: ColorConstant.BG.Grey.Normal,
     },
 
     textInput: {
         flex: 1,
         marginHorizontal: 10,
         borderBottomWidth: 1,
-        borderColor: ColorConstant.BG.Grey.Deep,
+        borderColor: ColorConstant.BG.Grey.Dark,
     },
 });
