@@ -2,34 +2,41 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import BusRouteList from '../../../Components/BusRouteList/BusRouteList';
 import IconButton from '../../../Components/Common/IconButton/IconButton';
 import PageContainer from '../../../Components/Common/PageContainer/PageContainer';
 import SearchBar from '../../../Components/Common/SearchBar/SearchBar';
 import TextComponent from '../../../Components/Common/TextComponent/TextComponent';
+import BusStopName from '../../../Constant/BusStopName';
 import ColorConstant from '../../../Constant/ColorConstant';
 import commonService from '../../../Services/Common/commonService';
 import fakeDataService from '../../../Services/Common/fakeDataService';
 import BusRoute from '../../../Type/Bus/BusRoute';
+import BottomNavigationList from '../../../Type/Navigation/BottomNavigationList';
+import MainStackList from '../../../Type/Navigation/MainStackList';
 import { closeLoader, openLoader } from '../../../store/reducer/appStateSlice';
 import { useAppDispatch } from '../../../store/storeHooks';
 
-const P2PRouteSearchScreen = () => {
-    const locationList: string[] = fakeDataService.randomLengthValueList(() => {
-        return fakeDataService.randomEngLetterGen(
-            fakeDataService.randomNumber({ min: 5, max: 20 }),
-        );
-    });
+type SearchBarType = 'from' | 'to';
 
+type NavigationProps = NativeStackScreenProps<
+    MainStackList & BottomNavigationList,
+    'P2PRouteSearch'
+>;
+
+const P2PRouteSearchScreen = ({ navigation }: NavigationProps) => {
     const { t } = useTranslation();
 
     const [busRouteList, setBusRouteList] = useState<BusRoute[]>(
-        fakeDataService.randomLengthObjectList(BusRoute, 'routeName'),
+        fakeDataService.randomLengthObjectList(BusRoute, 500, 'routeName'),
     );
     const [fromLocation, setFromLocation] = useState<string>('');
     const [toLocation, setToLocation] = useState<string>('');
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [showLocationList, setShowLocationList] = useState<boolean>(false);
+    const [focusSearchBar, setFocusSearchBar] = useState<SearchBarType>('from');
 
     const dispatch = useAppDispatch();
 
@@ -37,7 +44,7 @@ const P2PRouteSearchScreen = () => {
         dispatch(openLoader());
         await commonService.sleep(3000);
         setBusRouteList(
-            fakeDataService.randomLengthObjectList(BusRoute, 'routeName'),
+            fakeDataService.randomLengthObjectList(BusRoute, 500, 'routeName'),
         );
         dispatch(closeLoader());
     };
@@ -54,6 +61,10 @@ const P2PRouteSearchScreen = () => {
             default:
                 break;
         }
+    };
+
+    const onPressBusRoute = (busRoute: BusRoute) => {
+        navigation.navigate('BusRouteDetail', { busRoute });
     };
 
     const onPressFavorite = (routeName: string) => {
@@ -91,14 +102,29 @@ const P2PRouteSearchScreen = () => {
         setShowLocationList(false);
     };
 
-    const onPressTextInput = () => {
+    const onPressTextInput = (searchBarType: SearchBarType) => {
         setShowLocationList(true);
+        setFocusSearchBar(searchBarType);
     };
 
     const LocationList = () => {
         const renderItem = ({ item }: { item: string }) => {
+            const onPress = () => {
+                switch (focusSearchBar) {
+                    case 'from':
+                        setFromLocation(item);
+                        break;
+                    case 'to':
+                        setToLocation(item);
+                        break;
+                    default:
+                        break;
+                }
+            };
+
             return (
                 <TouchableOpacity
+                    onPress={onPress}
                     style={P2PRouteSearchScreenStyle.locationContainer}
                 >
                     <TextComponent>{item}</TextComponent>
@@ -108,7 +134,7 @@ const P2PRouteSearchScreen = () => {
 
         return (
             <FlatList
-                data={locationList}
+                data={BusStopName}
                 keyExtractor={(_, index) => index.toString()}
                 renderItem={renderItem}
             />
@@ -125,7 +151,9 @@ const P2PRouteSearchScreen = () => {
                             onInput(text, 'from');
                         }}
                         placeHolderText={t('From')}
-                        onFocus={onPressTextInput}
+                        onFocus={() => {
+                            onPressTextInput('from');
+                        }}
                         containerStyle={P2PRouteSearchScreenStyle.searchBar}
                     />
                     <SearchBar
@@ -134,7 +162,9 @@ const P2PRouteSearchScreen = () => {
                             onInput(text, 'to');
                         }}
                         placeHolderText={t('BusTo')}
-                        onFocus={onPressTextInput}
+                        onFocus={() => {
+                            onPressTextInput('to');
+                        }}
                         containerStyle={P2PRouteSearchScreenStyle.searchBar}
                     />
                 </View>
@@ -168,7 +198,7 @@ const P2PRouteSearchScreen = () => {
             {isSearching && !showLocationList && fromLocation && toLocation && (
                 <BusRouteList
                     busRouteList={busRouteList}
-                    onPressItem={() => {}}
+                    onPressItem={onPressBusRoute}
                     onPressFavorite={onPressFavorite}
                 />
             )}

@@ -52,14 +52,25 @@ const BusRouteBlock = ({
                     >
                         {t('BusTo')}
                     </TextComponent>
-                    <TextComponent fontSize={FontSizeConstant.large} isBold>
+                    <TextComponent
+                        fontSize={FontSizeConstant.large}
+                        style={{ flex: 1 }}
+                        isBold
+                        numberOfLines={2}
+                    >
                         {busRoute.terminus}
                     </TextComponent>
                 </View>
-                <TextComponent fontSize={FontSizeConstant.small}>
+                <TextComponent
+                    style={{ flex: 1 }}
+                    fontSize={FontSizeConstant.small}
+                    numberOfLines={2}
+                >
                     {`${
                         busRoute.busStop.busStopName
-                    } ($${busRoute.busStop.fee.toFixed(1)})`}
+                    } ($${busRoute.busStop.fee.toFixed(1)})\n${t(
+                        'Distance',
+                    )}: ${busRoute.distance} m`}
                 </TextComponent>
             </View>
             <View style={{ alignItems: 'flex-end' }}>
@@ -106,7 +117,6 @@ const BusRouteBlockStyle = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: ColorConstant.BG.White.Light,
-        borderTopWidth: 1,
         borderBottomWidth: 1,
         borderColor: ColorConstant.BG.Grey.Normal,
     },

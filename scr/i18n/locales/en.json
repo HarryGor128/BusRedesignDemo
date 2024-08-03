@@ -5,5 +5,8 @@
     "BusTo": "To",
     "From": "From",
     "Minute": "Minute",
-    "Favorite": "Favorite"
+    "Favorite": "Favorite",
+    "History": "History",
+    "Distance": "Distance",
+    "Fee": "Fee"
 }

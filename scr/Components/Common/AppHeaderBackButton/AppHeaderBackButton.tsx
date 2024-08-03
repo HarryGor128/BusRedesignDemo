@@ -1,11 +1,12 @@
 import { NavigationProp } from '@react-navigation/native';
 
 import ColorConstant from '../../../Constant/ColorConstant';
+import BottomNavigationList from '../../../Type/Navigation/BottomNavigationList';
 import MainStackList from '../../../Type/Navigation/MainStackList';
-import CustomButton from '../CustomButton/CustomButton';
+import IconButton from '../IconButton/IconButton';
 
-interface AppHeaderBackButtonProps {
-    navigation: NavigationProp<MainStackList>; // Navigation Prop
+export interface AppHeaderBackButtonProps {
+    navigation: NavigationProp<MainStackList & BottomNavigationList>; // Navigation Prop
     beforeGoBack?: Function; // Before page going back
     backToOtherPage?: Function; // Back to other page
 }
@@ -34,15 +35,14 @@ const AppHeaderBackButton = ({
     };
 
     return (
-        <CustomButton
-            OnPressCallback={OnPressBack}
-            Icon={['fas', 'chevron-left']}
-            IconSize={30}
-            IconColor={ColorConstant.Text.White.Normal}
-            ButtonContainerStyle={{
-                padding: 0,
-                backgroundColor: ColorConstant.Transparent.Clear,
+        <IconButton
+            onPressCallBack={OnPressBack}
+            IconProps={{
+                Icon: ['fas', 'chevron-left'],
+                IconSize: 30,
+                IconColor: ColorConstant.Text.White.Normal,
             }}
+            buttonStyle={{ padding: 0, paddingRight: 10 }}
         />
     );
 };

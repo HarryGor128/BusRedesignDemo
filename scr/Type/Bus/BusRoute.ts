@@ -5,15 +5,14 @@ class BusRoute {
     routeName: string;
     terminus: string;
     busStop: BusStop;
+    distance: number;
     isFavorite: boolean;
 
     constructor() {
-        this.routeName = fakeDataService.randomTrueFalse()
-            ? fakeDataService.randomEngLetterGen(1, 'upper') +
-              fakeDataService.randomNumber({ min: 1, max: 999 }).toString()
-            : fakeDataService.randomNumber({ min: 1, max: 999 }).toString();
-        this.terminus = 'Terminus';
+        this.routeName = fakeDataService.randomBusRouteName();
+        this.terminus = fakeDataService.randomBusStopName();
         this.busStop = new BusStop();
+        this.distance = fakeDataService.randomNumber({ min: 0, max: 999 }, 2);
         this.isFavorite = false;
     }
 }

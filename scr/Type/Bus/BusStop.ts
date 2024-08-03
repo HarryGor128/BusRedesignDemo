@@ -4,15 +4,17 @@ class BusStop {
     busStopName: string;
     fee: number;
     nextBus: number[];
+    distance: number;
 
     constructor() {
-        this.busStopName = 'Bus Stop';
-        this.fee = fakeDataService.randomNumber({ min: 0, max: 99 });
+        this.busStopName = fakeDataService.randomBusStopName();
+        this.fee = fakeDataService.randomNumber({ min: 0, max: 99 }, 1);
         this.nextBus = [
             fakeDataService.randomNumber({ min: 0, max: 99 }),
             fakeDataService.randomNumber({ min: 0, max: 99 }),
             fakeDataService.randomNumber({ min: 0, max: 99 }),
         ];
+        this.distance = fakeDataService.randomNumber({ min: 0, max: 999 }, 2);
     }
 }
 

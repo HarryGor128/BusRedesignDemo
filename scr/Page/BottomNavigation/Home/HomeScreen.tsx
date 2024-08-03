@@ -1,6 +1,8 @@
 import { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import BusRouteList from '../../../Components/BusRouteList/BusRouteList';
 import HorizontalScrollPage, {
     PageTitle,
@@ -8,13 +10,30 @@ import HorizontalScrollPage, {
 import PageContainer from '../../../Components/Common/PageContainer/PageContainer';
 import fakeDataService from '../../../Services/Common/fakeDataService';
 import BusRoute from '../../../Type/Bus/BusRoute';
+import BottomNavigationList from '../../../Type/Navigation/BottomNavigationList';
+import MainStackList from '../../../Type/Navigation/MainStackList';
 
-const HomeScreen = () => {
+type NavigationProps = NativeStackScreenProps<
+    MainStackList & BottomNavigationList,
+    'Home'
+>;
+
+const HomeScreen = ({ navigation }: NavigationProps) => {
     const { t } = useTranslation();
 
     const [busRouteList, setBusRouteList] = useState<BusRoute[]>(
-        fakeDataService.randomLengthObjectList(BusRoute, 'routeName'),
+        (
+            fakeDataService.randomLengthObjectList(
+                BusRoute,
+                500,
+                'routeName',
+            ) as BusRoute[]
+        ).sort((a, b) => a.distance - b.distance),
     );
+
+    const onPressBusRoute = (busRoute: BusRoute) => {
+        navigation.navigate('BusRouteDetail', { busRoute });
+    };
 
     const onPressFavorite = (routeName: string) => {
         setBusRouteList((prev) => {
@@ -33,12 +52,12 @@ const HomeScreen = () => {
     const page: ReactNode[] = [
         <BusRouteList
             busRouteList={busRouteList}
-            onPressItem={() => {}}
+            onPressItem={onPressBusRoute}
             onPressFavorite={onPressFavorite}
         />,
         <BusRouteList
             busRouteList={busRouteList.filter((item) => item.isFavorite)}
-            onPressItem={() => {}}
+            onPressItem={onPressBusRoute}
             onPressFavorite={onPressFavorite}
         />,
     ];

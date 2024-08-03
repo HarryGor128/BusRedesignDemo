@@ -1,3 +1,5 @@
+import BusStopName from '../../Constant/BusStopName';
+
 const fakeDataService = {
     randomNumber(
         range: { min: number; max: number } = { min: 0, max: 100 },
@@ -8,9 +10,13 @@ const fakeDataService = {
         return Number(random.toFixed(toFixed));
     },
 
-    randomLengthObjectList(data: any, filterKey?: string): any[] {
+    randomLengthObjectList(
+        data: any,
+        maxLength: number = 500,
+        filterKey?: string,
+    ): any[] {
         let dataList: any[] = [];
-        const listLength = this.randomNumber();
+        const listLength = this.randomNumber({ min: 1, max: maxLength });
 
         for (let i = 0; i < listLength; i++) {
             const newData = new data();
@@ -77,6 +83,24 @@ const fakeDataService = {
 
     randomTrueFalse(): boolean {
         return Math.random() >= 0.5;
+    },
+
+    randomBusRouteName(): string {
+        return this.randomTrueFalse()
+            ? this.randomEngLetterGen(1, 'upper') +
+                  this.randomNumber({ min: 1, max: 999 }).toString()
+            : this.randomNumber({ min: 1, max: 999 }).toString();
+    },
+
+    randomBusStopName(): string {
+        const index = this.randomNumber({
+            min: 0,
+            max: BusStopName.length - 2,
+        });
+
+        const name = BusStopName[index];
+
+        return name;
     },
 };
 

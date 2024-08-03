@@ -193,6 +193,23 @@ const commonService = {
             .toFixed(toFixed)
             .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} ${cur}`;
     },
+
+    async functionTimer(executeFunction: Function, functionName?: string) {
+        // Start timing
+        const startTime = Date.now();
+
+        await executeFunction();
+
+        // End timing
+        const endTime = Date.now();
+        const timeTaken = endTime - startTime;
+
+        console.log(
+            `${
+                functionName ? functionName + ' ' : ''
+            }time taken: ${timeTaken} ms`,
+        );
+    },
 };
 
 export default commonService;

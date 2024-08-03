@@ -2,9 +2,13 @@ import { StyleSheet, View } from 'react-native';
 
 import ColorConstant from '../../../Constant/ColorConstant';
 import FontSizeConstant from '../../../Constant/FontSizeConstant';
+import AppHeaderBackButton, {
+    AppHeaderBackButtonProps,
+} from '../AppHeaderBackButton/AppHeaderBackButton';
 import TextComponent from '../TextComponent/TextComponent';
 
 export interface AppHeaderProps {
+    BackButtonProps?: AppHeaderBackButtonProps; // App back button props
     LeftStack?: React.ReactNode; // Header left element
     RightStack?: React.ReactNode; // Header right element
     Title?: string; // Header title text
@@ -18,6 +22,7 @@ export interface AppHeaderProps {
 
 /**
  *
+ *  @param BackButtonProps?: AppHeaderBackButtonProps; // App back button props
  *  @param LeftStack?: React.ReactNode; // Header left element
  *  @param RightStack?: React.ReactNode; // Header right element
  *  @param Title?: string; // Header title text
@@ -29,6 +34,7 @@ export interface AppHeaderProps {
  *  @param HeaderRight?: boolean; // Header disable right stack
  */
 const AppHeader = ({
+    BackButtonProps,
     LeftStack,
     RightStack,
     Title,
@@ -49,7 +55,12 @@ const AppHeader = ({
             ]}
         >
             <View style={AppHeaderStyles.LeftStackContainer}>
-                {LeftStack && !HeaderLeft && LeftStack}
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    {BackButtonProps && (
+                        <AppHeaderBackButton {...BackButtonProps} />
+                    )}
+                    {LeftStack && !HeaderLeft && LeftStack}
+                </View>
             </View>
             {/* <View style={AppHeaderStyles.HeaderTitleContainer}> */}
             <TextComponent
@@ -85,7 +96,7 @@ const AppHeaderStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        backgroundColor: ColorConstant.BG.Blue.Dark,
+        backgroundColor: ColorConstant.BG.Red.Normal,
     },
 
     // HeaderTitleContainer: {

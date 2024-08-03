@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
 import MainStackList from '../../Type/Navigation/MainStackList';
+import BusRouteDetailScreen from '../BusRouteDetail/BusRouteDetailScreen';
 import InitializationScreen from '../Initialization/Initialization';
 import BottomNavigationStack from './BottomNavigationStack';
 
@@ -19,6 +20,10 @@ const MainStack = () => {
             <Stack.Screen
                 name={'BottomNavigation'}
                 component={BottomNavigationStack}
+            />
+            <Stack.Screen
+                name={'BusRouteDetail'}
+                component={BusRouteDetailScreen}
             />
         </Stack.Navigator>
     );
