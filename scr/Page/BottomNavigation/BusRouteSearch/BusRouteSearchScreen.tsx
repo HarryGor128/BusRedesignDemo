@@ -1,15 +1,22 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import {
+    StyleSheet,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+} from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import BusRouteList from '../../../Components/BusRouteList/BusRouteList';
+import BusRouteSearchKeyboard from '../../../Components/BusRouteSearchKeyboard/BusRouteSearchKeyboard';
+import AppIcon from '../../../Components/Common/AppIcon/AppIconRenderer';
 import HorizontalScrollPage, {
     PageTitle,
 } from '../../../Components/Common/HorizontalScrollPage/HorizontalScrollPage';
 import PageContainer from '../../../Components/Common/PageContainer/PageContainer';
-import SearchBar from '../../../Components/Common/SearchBar/SearchBar';
+import TextComponent from '../../../Components/Common/TextComponent/TextComponent';
+import ColorConstant from '../../../Constant/ColorConstant';
 import commonService from '../../../Services/Common/commonService';
 import fakeDataService from '../../../Services/Common/fakeDataService';
 import BusRoute from '../../../Type/Bus/BusRoute';
@@ -33,6 +40,7 @@ const BusRouteSearchScreen = ({ navigation }: NavigationProps) => {
         [],
     );
     const [searchText, setSearchText] = useState<string>('');
+    const [showKeyboard, setShowKeyboard] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
 
@@ -47,6 +55,11 @@ const BusRouteSearchScreen = ({ navigation }: NavigationProps) => {
     }, []);
 
     const onPressBusRoute = (busRoute: BusRoute) => {
+        if (showKeyboard) {
+            onPressInput();
+            return;
+        }
+
         if (
             historyBusRouteList.find(
                 (item) => item.routeName === busRoute.routeName,
@@ -82,6 +95,10 @@ const BusRouteSearchScreen = ({ navigation }: NavigationProps) => {
         setSearchText(text);
     };
 
+    const onPressInput = () => {
+        setShowKeyboard(!showKeyboard);
+    };
+
     const pageTitle: PageTitle[] = [
         { title: t('Search'), icon: { Icon: ['fas', 'search'] } },
         { title: t('History'), icon: { Icon: ['fas', 'history'] } },
@@ -106,13 +123,38 @@ const BusRouteSearchScreen = ({ navigation }: NavigationProps) => {
 
     return (
         <PageContainer>
-            <SearchBar
-                value={searchText}
-                onInput={onInput}
-                keyboardType={'number-pad'}
-                containerStyle={BusRouteSearchScreenStyle.searchBar}
-            />
-            <HorizontalScrollPage page={page} pageTitle={pageTitle} />
+            <TouchableWithoutFeedback
+                style={{ flex: 1 }}
+                onPress={() => {
+                    onPressInput();
+                }}
+                accessible={false}
+            >
+                <>
+                    <TouchableOpacity
+                        onPress={() => {
+                            onPressInput();
+                        }}
+                        style={BusRouteSearchScreenStyle.inputContainer}
+                    >
+                        <AppIcon
+                            Icon={['fas', 'search']}
+                            IconColor={ColorConstant.Text.Grey.Dark}
+                            IconSize={20}
+                        />
+                        <TextComponent
+                            style={BusRouteSearchScreenStyle.textInput}
+                        >
+                            {searchText ? searchText : t('Search')}
+                        </TextComponent>
+                    </TouchableOpacity>
+                    <HorizontalScrollPage page={page} pageTitle={pageTitle} />
+                    <BusRouteSearchKeyboard
+                        showKeyboard={showKeyboard}
+                        onInput={onInput}
+                    />
+                </>
+            </TouchableWithoutFeedback>
         </PageContainer>
     );
 };
@@ -120,8 +162,21 @@ const BusRouteSearchScreen = ({ navigation }: NavigationProps) => {
 export default BusRouteSearchScreen;
 
 const BusRouteSearchScreenStyle = StyleSheet.create({
-    searchBar: {
+    inputContainer: {
         borderRadius: 10,
         margin: 10,
+        height: 70,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: ColorConstant.BG.Grey.Normal,
+    },
+
+    textInput: {
+        flex: 1,
+        marginHorizontal: 10,
+        borderBottomWidth: 1,
+        borderColor: ColorConstant.BG.Grey.Dark,
     },
 });

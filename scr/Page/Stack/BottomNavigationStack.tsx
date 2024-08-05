@@ -9,6 +9,7 @@ import AppIcon, {
 import ColorConstant from '../../Constant/ColorConstant';
 import FontSizeConstant from '../../Constant/FontSizeConstant';
 import BottomNavigationList from '../../Type/Navigation/BottomNavigationList';
+import { useAppSelector } from '../../store/storeHooks';
 import BusRouteSearchScreen from '../BottomNavigation/BusRouteSearch/BusRouteSearchScreen';
 import HomeScreen from '../BottomNavigation/Home/HomeScreen';
 import P2PRouteSearchScreen from '../BottomNavigation/P2PRouteSearch/P2PRouteSearchScreen';
@@ -23,6 +24,8 @@ interface BottomScreen {
 }
 
 const BottomNavigationStack = () => {
+    const { isKeyboardShow } = useAppSelector((state) => state.appState);
+
     const { t } = useTranslation();
 
     const bottomScreen: BottomScreen[] = [
@@ -58,7 +61,10 @@ const BottomNavigationStack = () => {
                     marginBottom: 5,
                 },
                 tabBarHideOnKeyboard: true,
-                tabBarStyle: { height: 70 },
+                tabBarStyle: {
+                    height: 70,
+                    display: isKeyboardShow ? 'none' : 'flex',
+                },
                 tabBarIconStyle: { margin: 5 },
                 tabBarAllowFontScaling: false,
             }}
