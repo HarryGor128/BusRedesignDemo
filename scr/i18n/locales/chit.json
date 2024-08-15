@@ -8,5 +8,13 @@
     "Favorite": "最愛",
     "History": "歷史",
     "Distance": "距離",
-    "Fee": "費用"
+    "Fee": "費用",
+    "Language": "語言",
+    "DataUpdate": "資料更新",
+    "ReminderSetting": "提醒設定",
+    "UsefulLink": "實用連結",
+    "TermsOfUse": "使用條款",
+    "Error": "錯誤",
+    "P2PError": "請輸入搜尋位置",
+    "Nearby": "附近 (米)"
 }

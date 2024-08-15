@@ -5,10 +5,14 @@ import FontSizeConstant from '../../../Constant/FontSizeConstant';
 import AppHeaderBackButton, {
     AppHeaderBackButtonProps,
 } from '../AppHeaderBackButton/AppHeaderBackButton';
+import AppHeaderDrawerButton, {
+    AppHeaderDrawerButtonProps,
+} from '../AppHeaderDrawerButton/AppHeaderDrawerButton';
 import TextComponent from '../TextComponent/TextComponent';
 
 export interface AppHeaderProps {
     BackButtonProps?: AppHeaderBackButtonProps; // App back button props
+    DrawerButtonProps?: AppHeaderDrawerButtonProps; // App drawer button props
     LeftStack?: React.ReactNode; // Header left element
     RightStack?: React.ReactNode; // Header right element
     Title?: string; // Header title text
@@ -23,6 +27,7 @@ export interface AppHeaderProps {
 /**
  *
  *  @param BackButtonProps?: AppHeaderBackButtonProps; // App back button props
+ *  @param DrawerButtonProps?: boolean; // App drawer button props
  *  @param LeftStack?: React.ReactNode; // Header left element
  *  @param RightStack?: React.ReactNode; // Header right element
  *  @param Title?: string; // Header title text
@@ -35,6 +40,7 @@ export interface AppHeaderProps {
  */
 const AppHeader = ({
     BackButtonProps,
+    DrawerButtonProps,
     LeftStack,
     RightStack,
     Title,
@@ -56,6 +62,9 @@ const AppHeader = ({
         >
             <View style={AppHeaderStyles.LeftStackContainer}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    {DrawerButtonProps && (
+                        <AppHeaderDrawerButton {...DrawerButtonProps} />
+                    )}
                     {BackButtonProps && (
                         <AppHeaderBackButton {...BackButtonProps} />
                     )}

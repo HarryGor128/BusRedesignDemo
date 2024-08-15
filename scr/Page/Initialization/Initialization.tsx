@@ -31,7 +31,7 @@ const InitializationScreen = () => {
 
     useEffect(() => {
         fakeLoading();
-        navigation.navigate('BottomNavigation');
+        navigation.navigate('DrawerNavigationStack');
     }, []);
 
     return <View style={{ backgroundColor: ColorConstant.BG.White.Normal }} />;

@@ -21,12 +21,13 @@ import commonService from '../../../Services/Common/commonService';
 import fakeDataService from '../../../Services/Common/fakeDataService';
 import BusRoute from '../../../Type/Bus/BusRoute';
 import BottomNavigationList from '../../../Type/Navigation/BottomNavigationList';
+import DrawerNavigationList from '../../../Type/Navigation/DrawerNavigationList';
 import MainStackList from '../../../Type/Navigation/MainStackList';
 import { closeLoader, openLoader } from '../../../store/reducer/appStateSlice';
 import { useAppDispatch } from '../../../store/storeHooks';
 
 type NavigationProps = NativeStackScreenProps<
-    MainStackList & BottomNavigationList,
+    MainStackList & BottomNavigationList & DrawerNavigationList,
     'BusRouteSearch'
 >;
 
@@ -34,7 +35,13 @@ const BusRouteSearchScreen = ({ navigation }: NavigationProps) => {
     const { t } = useTranslation();
 
     const [busRouteList, setBusRouteList] = useState<BusRoute[]>(
-        fakeDataService.randomLengthObjectList(BusRoute, 500, 'routeName'),
+        (
+            fakeDataService.randomLengthObjectList(
+                BusRoute,
+                500,
+                'routeName',
+            ) as BusRoute[]
+        ).sort((a, b) => a.routeName.localeCompare(b.routeName)),
     );
     const [historyBusRouteList, setHistoryBusRouteList] = useState<BusRoute[]>(
         [],
@@ -122,7 +129,13 @@ const BusRouteSearchScreen = ({ navigation }: NavigationProps) => {
     ];
 
     return (
-        <PageContainer>
+        <PageContainer
+            showHeader
+            headerProps={{
+                Title: t('Search'),
+                DrawerButtonProps: { navigation },
+            }}
+        >
             <TouchableWithoutFeedback
                 style={{ flex: 1 }}
                 onPress={() => {

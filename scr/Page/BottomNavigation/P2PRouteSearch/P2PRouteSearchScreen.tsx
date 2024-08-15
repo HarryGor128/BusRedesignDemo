@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+    Alert,
+    FlatList,
+    StyleSheet,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -15,6 +21,7 @@ import commonService from '../../../Services/Common/commonService';
 import fakeDataService from '../../../Services/Common/fakeDataService';
 import BusRoute from '../../../Type/Bus/BusRoute';
 import BottomNavigationList from '../../../Type/Navigation/BottomNavigationList';
+import DrawerNavigationList from '../../../Type/Navigation/DrawerNavigationList';
 import MainStackList from '../../../Type/Navigation/MainStackList';
 import { closeLoader, openLoader } from '../../../store/reducer/appStateSlice';
 import { useAppDispatch } from '../../../store/storeHooks';
@@ -22,7 +29,7 @@ import { useAppDispatch } from '../../../store/storeHooks';
 type SearchBarType = 'from' | 'to';
 
 type NavigationProps = NativeStackScreenProps<
-    MainStackList & BottomNavigationList,
+    MainStackList & BottomNavigationList & DrawerNavigationList,
     'P2PRouteSearch'
 >;
 
@@ -91,9 +98,13 @@ const P2PRouteSearchScreen = ({ navigation }: NavigationProps) => {
     };
 
     const onPressSearch = async () => {
-        await fakeLoading();
-        setIsSearching(true);
-        setShowLocationList(false);
+        if (toLocation && fromLocation) {
+            await fakeLoading();
+            setIsSearching(true);
+            setShowLocationList(false);
+        } else {
+            Alert.alert(t('Error'), t('P2PError'));
+        }
     };
 
     const onPressCancel = () => {
@@ -142,7 +153,10 @@ const P2PRouteSearchScreen = ({ navigation }: NavigationProps) => {
     };
 
     return (
-        <PageContainer>
+        <PageContainer
+            showHeader
+            headerProps={{ Title: t('P2P'), DrawerButtonProps: { navigation } }}
+        >
             <View style={P2PRouteSearchScreenStyle.searchContainer}>
                 <View style={{ flex: 1, marginRight: 10 }}>
                     <SearchBar

@@ -2,7 +2,7 @@ import BusRoute from '../Bus/BusRoute';
 
 type MainStackList = {
     Initialization: undefined;
-    BottomNavigation: undefined;
+    DrawerNavigationStack: undefined;
     BusRouteDetail: { busRoute: BusRoute };
 };
 

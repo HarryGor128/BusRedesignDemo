@@ -8,5 +8,13 @@
     "Favorite": "Favorite",
     "History": "History",
     "Distance": "Distance",
-    "Fee": "Fee"
+    "Fee": "Fee",
+    "Language": "Language",
+    "DataUpdate": "Data Update",
+    "ReminderSetting": "Reminder Setting",
+    "UsefulLink": "Useful Link",
+    "TermsOfUse": "Terms of Use",
+    "Error": "Error",
+    "P2PError": "Please field in search location",
+    "Nearby": "Nearby (m)"
 }

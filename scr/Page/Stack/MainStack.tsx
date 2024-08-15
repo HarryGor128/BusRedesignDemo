@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MainStackList from '../../Type/Navigation/MainStackList';
 import BusRouteDetailScreen from '../BusRouteDetail/BusRouteDetailScreen';
 import InitializationScreen from '../Initialization/Initialization';
-import BottomNavigationStack from './BottomNavigationStack';
+import DrawerNavigationStack from './DrawerNavigationStack';
 
 const Stack = createStackNavigator<MainStackList>();
 
@@ -18,8 +18,8 @@ const MainStack = () => {
                 component={InitializationScreen}
             />
             <Stack.Screen
-                name={'BottomNavigation'}
-                component={BottomNavigationStack}
+                name={'DrawerNavigationStack'}
+                component={DrawerNavigationStack}
             />
             <Stack.Screen
                 name={'BusRouteDetail'}
